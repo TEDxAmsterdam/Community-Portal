@@ -1,2 +1,2 @@
 # community-portal
-Tedx Dev Community Portal
+TEDx Dev Community Portal
