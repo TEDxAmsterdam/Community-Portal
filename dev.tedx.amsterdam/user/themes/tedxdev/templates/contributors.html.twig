@@ -1,0 +1,37 @@
+{% embed 'partials/base.html.twig' %}
+
+	{% set collection = page.collection() %}
+
+	{% block content %}
+		{% set blog_image = page.media.images|first.grayscale().contrast(20).brightness(-100).colorize(-35,81,122) %}
+
+		{% if blog_image %}
+		<div class="flush-top blog-header blog-header-image" style="background-image: url({{ blog_image.url }});">
+		{% else %}
+		<div class="blog-header">
+		{% endif %}
+			{{ page.content }}
+		</div>
+
+			{% if config.plugins.breadcrumbs.enabled %}
+				{% include 'partials/breadcrumbs.html.twig' %}
+			{% endif %}
+
+		<div class="content-wrapper">
+		    <h1>Contributors</h1>
+		     {% set contributors = github.client.api('repo').contributors('TEDxAmsterdam', 'frontend')|merge(github.client.api('repo').contributors('TEDxAmsterdam', 'backend'))|sort_by_key('contributions')|reverse %}
+		     <ul>
+			 {% set unduped = [] %}
+		     {% for contributor in contributors %}
+				 {% if contributor not in unduped %}
+			     {% set unduped = unduped|merge([contributor]) %}
+			     {% endif %}
+			 {% endfor %}	 
+		     {% for contributor in unduped %} 
+		         <li><img src="{{ contributor.avatar_url }}" style="width:50px;height:50px;"> <a href="{{ contributor.html_url }}" target="_blank" rel="external nofollow">{{ contributor.login }}</a> <span>(contributions: {{ contributor.contributions }})</span></li> 
+		     {% endfor %}
+		     </ul>
+		</div>
+	{% endblock %}
+
+{% endembed %}
