@@ -19,18 +19,39 @@
 
 		<div class="content-wrapper">
 		    <h1>Contributors</h1>
-		     {% set contributors = github.client.api('repo').contributors('TEDxAmsterdam', 'frontend')|merge(github.client.api('repo').contributors('TEDxAmsterdam', 'backend'))|sort_by_key('contributions')|reverse %}
+			<h2>TEDxDev says thanks to all volunteers!</h2>
+			<br/>
+			<h3>React.js</h3>
+		     {% set contributors = github.client.api('repo').contributors('TEDxAmsterdam', 'frontend')|sort_by_key('contributions')|reverse %}
 		     <ul>
-			 {% set unduped = [] %}
-		     {% for contributor in contributors %}
-				 {% if contributor not in unduped %}
-			     {% set unduped = unduped|merge([contributor]) %}
-			     {% endif %}
-			 {% endfor %}	 
-		     {% for contributor in unduped %} 
+		     {% for contributor in contributors %} 
 		         <li><img src="{{ contributor.avatar_url }}" style="width:50px;height:50px;"> <a href="{{ contributor.html_url }}" target="_blank" rel="external nofollow">{{ contributor.login }}</a> <span>(contributions: {{ contributor.contributions }})</span></li> 
 		     {% endfor %}
 		     </ul>
+			 
+ 			<h3>Loopback</h3>
+ 		     {% set contributors = github.client.api('repo').contributors('TEDxAmsterdam', 'backend')|sort_by_key('contributions')|reverse %}
+ 		     <ul>
+ 		     {% for contributor in contributors %} 
+ 		         <li><img src="{{ contributor.avatar_url }}" style="width:50px;height:50px;"> <a href="{{ contributor.html_url }}" target="_blank" rel="external nofollow">{{ contributor.login }}</a> <span>(contributions: {{ contributor.contributions }})</span></li> 
+ 		     {% endfor %}
+ 		     </ul>
+			 
+  			<h3>Getgrav</h3>
+  		     {% set contributors = github.client.api('repo').contributors('TEDxAmsterdam', 'community-portal')|sort_by_key('contributions')|reverse %}
+  		     <ul>
+  		     {% for contributor in contributors %} 
+  		         <li><img src="{{ contributor.avatar_url }}" style="width:50px;height:50px;"> <a href="{{ contributor.html_url }}" target="_blank" rel="external nofollow">{{ contributor.login }}</a> <span>(contributions: {{ contributor.contributions }})</span></li> 
+  		     {% endfor %}
+  		     </ul>
+			 
+ 			<h3>Nexo</h3>
+ 		     {% set contributors = github.client.api('repo').contributors('TEDxAmsterdam', 'nexo')|sort_by_key('contributions')|reverse %}
+ 		     <ul>
+ 		     {% for contributor in contributors %} 
+ 		         <li><img src="{{ contributor.avatar_url }}" style="width:50px;height:50px;"> <a href="{{ contributor.html_url }}" target="_blank" rel="external nofollow">{{ contributor.login }}</a> <span>(contributions: {{ contributor.contributions }})</span></li> 
+ 		     {% endfor %}
+ 		     </ul>
 		</div>
 	{% endblock %}
 
